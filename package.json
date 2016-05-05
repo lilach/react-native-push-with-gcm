@@ -1,50 +1,24 @@
 {
-  "_args": [
-    [
-      "../react-native-push-with-gcm",
-      "/Users/lilach/Projects/MyKlarnaMobile"
-    ]
-  ],
-  "_from": "../react-native-push-with-gcm",
-  "_id": "react-native-push-with-gcm@0.1.0",
-  "_inCache": true,
-  "_installable": true,
-  "_location": "/react-native-push-with-gcm",
-  "_phantomChildren": {},
-  "_requested": {
-    "name": null,
-    "raw": "../react-native-push-with-gcm",
-    "rawSpec": "../react-native-push-with-gcm",
-    "scope": null,
-    "spec": "/Users/lilach/Projects/react-native-push-with-gcm",
-    "type": "directory"
+  "name": "react-native-push-with-gcm",
+  "version": "0.1.0",
+  "description": "Register to GCM for push notifications",
+  "main": "push_with_gcm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "_requiredBy": [
-    "/"
-  ],
-  "_resolved": "file:../react-native-push-with-gcm",
-  "_shasum": "e85b71af2fd9863b7195b06b67f44e8875e8bbb6",
-  "_shrinkwrap": null,
-  "_spec": "../react-native-push-with-gcm",
-  "_where": "/Users/lilach/Projects/MyKlarnaMobile",
-  "author": {
-    "name": "Lilach Adir"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilach/react-native-push-with-gcm.git"
   },
-  "dependencies": {},
-  "description": "Make it simpler to register for push notifications through GCM",
-  "devDependencies": {},
   "keywords": [
     "gcm",
     "ios",
     "react-native"
   ],
+  "author": "Lilach Adir",
   "license": "MIT",
-  "main": "push_with_gcm.js",
-  "name": "react-native-push-with-gcm",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bugs": {
+    "url": "https://github.com/lilach/react-native-push-with-gcm/issues"
   },
-  "version": "0.1.0"
+  "homepage": "https://github.com/lilach/react-native-push-with-gcm#readme"
 }
