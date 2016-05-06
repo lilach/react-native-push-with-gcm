@@ -1,6 +1,6 @@
 {
   "name": "react-native-push-with-gcm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Register to GCM for push notifications",
   "main": "push_with_gcm.js",
   "scripts": {
