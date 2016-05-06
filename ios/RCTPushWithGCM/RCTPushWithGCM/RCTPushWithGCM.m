@@ -115,6 +115,17 @@ RCT_EXPORT_METHOD(registerToGCMWithDeviceToken:(NSString *)deviceToken isSandbox
                                                     handler: _registrationHandler];
 }
 
+RCT_EXPORT_METHOD(unregisterTokenFromGCM)
+{
+  [[GGLInstanceID sharedInstance] deleteTokenWithAuthorizedEntity:_gcmSenderID
+                                                            scope:kGGLInstanceIDScopeGCM
+                                                          handler:^(NSError *error) {
+                                                            // handle the error
+                                                            NSLog(@"Delete token failed: %@",
+                                                                  error.localizedDescription);
+                                                          }];
+}
+
 - (void)onTokenRefresh {
   // A rotation of the registration tokens is happening, so the app needs to request a new token.
   NSLog(@"The GCM registration token needs to be changed.");
@@ -152,6 +163,30 @@ RCT_EXPORT_METHOD(subscribeToTopics:(NSArray *)topics)
     self.topics = nil;
   } else {
     self.topics = topics;
+  }
+}
+
+RCT_EXPORT_METHOD(unsubscribeFromTopics:(NSArray *)topics)
+{
+  // If the app has a registration token and is connected to GCM, proceed to subscribe to the
+  // topic
+  if (_registrationToken && _connectedToGCM) {
+    for (NSString *topic in topics) {
+      [[GCMPubSub sharedInstance] unsubscribeWithToken: _registrationToken
+                                                 topic: [NSString stringWithFormat:@"/topics/%@", topic]
+                                               options: nil
+                                               handler: ^(NSError *error) {
+                                                 if (error) {
+                                                   int code = error.code;
+                                                   // handle the error, using exponential backoff to retry
+                                                   NSLog(@"Unsubscribe failed: %@",
+                                                         error.localizedDescription);
+                                                 } else {
+                                                   // Unsubscribe successfully
+                                                   NSLog(@"Unsubscribed from %@", topic);
+                                                 }
+                                               }];
+    }
   }
 }
 

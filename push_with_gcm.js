@@ -6,11 +6,19 @@ module.exports = {
     PushWithGCM.configureGCM()
   },
 
-  registerUser (deviceToken, sandbox) {
+  registerToken (deviceToken, sandbox) {
     PushWithGCM.registerToGCMWithDeviceToken(deviceToken, sandbox)
+  },
+
+  unregisterToken () {
+    PushWithGCM.unregisterTokenFromGCM()
   },
 
   subscribeToTopics (topics) {
     PushWithGCM.subscribeToTopics(topics)
+  },
+
+  unsubscribeFromTopics (topics) {
+    PushWithGCM.unsubscribeFromTopics(topics)
   }
 }
