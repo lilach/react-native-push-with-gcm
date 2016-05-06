@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - A troubleshooting section in the README
 - You can unregister a token both from subscriptions and push
   notifications altogether.
+
 ### Changed
 - registration method name, to better describe what's going on. changed
   from `registerUser(..., ...)` to `registerToken(..., ...)`
