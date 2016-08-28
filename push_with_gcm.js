@@ -1,13 +1,13 @@
-import React from 'react-native'
-var PushWithGCM = React.NativeModules.PushWithGCM
+import ReactNative from 'react-native'
+var PushWithGCM = ReactNative.NativeModules.PushWithGCM
 
 module.exports = {
   configure () {
     PushWithGCM.configureGCM()
   },
 
-  registerToken (deviceToken, sandbox) {
-    PushWithGCM.registerToGCMWithDeviceToken(deviceToken, sandbox)
+  async registerToken (deviceToken, sandbox) {
+    return await PushWithGCM.registerToGCMWithDeviceToken(deviceToken, sandbox)
   },
 
   unregisterToken () {

@@ -1,4 +1,7 @@
-## react-native-push-with-gcm
+# react-native-push-with-gcm
+
+[![npm
+version](https://badge.fury.io/js/react-native-push-with-gcm@2x.png)](http://badge.fury.io/js/react-native-push-with-gcm)
 
 Register device for GCM push notifications services (supported only for
 iOS)

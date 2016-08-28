@@ -19,6 +19,8 @@
 @property(nonatomic, strong) void (^registrationHandler)(NSString *registrationToken, NSError *error);
 @property(nonatomic, assign) BOOL connectedToGCM;
 @property(nonatomic, assign) BOOL subscribedToTopic;
+@property(nonatomic, strong) RCTPromiseResolveBlock resolver;
+@property(nonatomic, strong) RCTPromiseRejectBlock rejecter;
 
 @end
 
@@ -57,6 +59,9 @@ RCT_EXPORT_METHOD(configureGCM)
   _registrationHandler = ^(NSString *registrationToken, NSError *error) {
     if (registrationToken != nil) {
       weakSelf.registrationToken = registrationToken;
+      if (weakSelf.resolver) {
+        weakSelf.resolver(registrationToken);
+      }
       NSLog(@"Registration Token: %@", registrationToken);
       
       // Connect to the GCM server to receive non-APNS notifications
@@ -77,6 +82,9 @@ RCT_EXPORT_METHOD(configureGCM)
     } else {
       NSLog(@"Registration to GCM failed with error: %@", error.localizedDescription);
       NSDictionary *userInfo = @{@"error":error.localizedDescription};
+      if (weakSelf.rejecter) {
+        weakSelf.rejecter(@"no registration token", error.localizedDescription, error);
+      }
       [[NSNotificationCenter defaultCenter] postNotificationName: weakSelf.registrationKey
                                                           object: nil
                                                         userInfo: userInfo];
@@ -104,11 +112,13 @@ RCT_EXPORT_METHOD(configureGCM)
   return data;
 }
 
-RCT_EXPORT_METHOD(registerToGCMWithDeviceToken:(NSString *)deviceToken isSandbox:(BOOL)sandbox)
+RCT_EXPORT_METHOD(registerToGCMWithDeviceToken:(NSString *)deviceToken isSandbox:(BOOL)sandbox resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   NSData *token = [self dataFromHexString:deviceToken];
   _registrationOptions = @{kGGLInstanceIDRegisterAPNSOption: token,
                            kGGLInstanceIDAPNSServerTypeSandboxOption: @(sandbox)};
+  _resolver = resolve;
+  _rejecter = reject;
   [[GGLInstanceID sharedInstance] tokenWithAuthorizedEntity: _gcmSenderID
                                                       scope: kGGLInstanceIDScopeGCM
                                                     options: _registrationOptions
