@@ -1,6 +1,6 @@
 {
   "name": "react-native-push-with-gcm",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Register to GCM for push notifications",
   "main": "push_with_gcm.js",
   "scripts": {
@@ -15,7 +15,10 @@
     "ios",
     "react-native"
   ],
-  "author": "Lilach Adir",
+  "authors": [
+    "Lilach Adir",
+    "Tomer Levi"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lilach/react-native-push-with-gcm/issues"
