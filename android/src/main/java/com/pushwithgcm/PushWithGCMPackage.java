@@ -12,6 +12,12 @@ import java.util.List;
 
 public class PushWithGCMPackage implements ReactPackage {
 
+    static String gcmSenderId;
+
+    public PushWithGCMPackage(String gcmSenderId) {
+        this.gcmSenderId = gcmSenderId;
+    }
+
     @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
@@ -27,7 +33,7 @@ public class PushWithGCMPackage implements ReactPackage {
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new PushWithGCM(reactContext));
+        modules.add(new PushWithGCM(reactContext, gcmSenderId));
 
         return modules;
     }
