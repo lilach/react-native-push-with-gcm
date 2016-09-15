@@ -49,11 +49,17 @@ Look for Header Search Paths and add this as `non-recursive`:
 
 #### Android
 
-- In `build.gradle`, insert the following code:
+- Edit `build.gradle` to look like this:
 ```
+apply plugin: 'com.android.application'
+
+android {
+  ...
+}
+
 dependencies {
   ...
-  compile project(':react-native-push-with-gcm')
++ compile project(':react-native-push-with-gcm')
 }
 ```
 
@@ -61,6 +67,28 @@ dependencies {
 ```
 include ':react-native-push-with-gcm'
 project(':react-native-push-with-gcm').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-with-gcm/android')
+```
+
+- Get a `GCM_SENDER_ID` by registering your app in the following [link](https://developers.google.com/mobile/add).
+- 
+- Edit your MainActivity.java (deep in android/app/src/main/java/...) to look like this (note two places to edit):
+```
+package com.myapp;
+
++ import com.oblador.keychain.KeychainPackage;
+....
+
+public class MainActivity extends extends ReactActivity {
+
+  @Override
+  protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+              new MainReactPackage(),
++             new PushWithGCMPackage(<GCM_SENDER_ID>)
+      );
+  }
+  ...
+}
 ```
 
 ## Requirements
