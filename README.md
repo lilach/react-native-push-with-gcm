@@ -59,7 +59,7 @@ android {
 
 dependencies {
   ...
-//+ compile project(':react-native-push-with-gcm')
++ compile project(':react-native-push-with-gcm')
 }
 ```
 
