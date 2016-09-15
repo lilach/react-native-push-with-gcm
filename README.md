@@ -29,6 +29,8 @@ will magically link it
 
 ### Installing manually
 
+#### iOS
+
 In XCode, in the project navigator:
 - Right click Libraries
 - Add Files to [your project's name]
@@ -45,6 +47,22 @@ the Build Settings tab. Make sure 'All' is toggled on (instead of
 Look for Header Search Paths and add this as `non-recursive`:
 `$(SRCROOT)/../node_modules/react-native-push-with-gcm/ios/RCTPushWithGCM/RCTPushWithGCM`
 
+#### Android
+
+- In `build.gradle`, insert the following code:
+```
+dependencies {
+  ...
+  compile project(':react-native-push-with-gcm')
+}
+```
+
+- In `settings.gradle`, insert the following code:
+```
+include ':react-native-push-with-gcm'
+project(':react-native-push-with-gcm').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-with-gcm/android')
+```
+
 ## Requirements
 
 - Google Cloud Messaging. You can find the instructions
@@ -53,7 +71,9 @@ Look for Header Search Paths and add this as `non-recursive`:
 
 ## Usage
 
-First you need to configure and connect to GCM:
+#### Setup (Required for iOS only)
+
+For iOS devices only, you'll need to configure and connect to GCM:
 
 ```javascript
 var PushWithGCM = require('react-native-push-with-gcm')
@@ -84,6 +104,7 @@ PushWithGCM.unregisterToken()
 > (from the
 > [docs](https://developers.google.com/instance-id/reference/ios/api/interface_g_g_l_instance_i_d.html#method-detail))
 
+#### Subscription to topics
 If there are topics you'd like this device to be registered to, you can
 easily do that too. after registration send an array of all the topics
 to register to:
@@ -96,7 +117,7 @@ These topics will be registered as `/topics/push`, `/topics/with` and
 
 When you're done with these topics, simply call
 ```js
-PushWithGCM.unsibscribeFromTopics(['first-time-users'])
+PushWithGCM.unsubscribeFromTopics(['first-time-users'])
 ```
 
 ## Troubleshooting
