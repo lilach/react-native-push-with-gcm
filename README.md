@@ -71,7 +71,7 @@ project(':react-native-push-with-gcm').projectDir = new File(rootProject.project
 
 ## Usage
 
-#### Setup (Required for iOS only)
+### Setup (Required for iOS only)
 
 For iOS devices only, you'll need to configure and connect to GCM:
 
@@ -104,7 +104,7 @@ PushWithGCM.unregisterToken()
 > (from the
 > [docs](https://developers.google.com/instance-id/reference/ios/api/interface_g_g_l_instance_i_d.html#method-detail))
 
-#### Subscription to topics
+### Subscription to topics
 If there are topics you'd like this device to be registered to, you can
 easily do that too. after registration send an array of all the topics
 to register to:
