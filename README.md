@@ -50,7 +50,7 @@ Look for Header Search Paths and add this as `non-recursive`:
 #### Android
 
 - Edit `build.gradle` to look like this:
-```
+```java
 apply plugin: 'com.android.application'
 
 android {
