@@ -59,7 +59,7 @@ android {
 
 dependencies {
   ...
-+ compile project(':react-native-push-with-gcm')
+//+ compile project(':react-native-push-with-gcm')
 }
 ```
 
@@ -70,7 +70,7 @@ project(':react-native-push-with-gcm').projectDir = new File(rootProject.project
 ```
 
 - Get a `GCM_SENDER_ID` by registering your app in the following [link](https://developers.google.com/mobile/add).
-- 
+
 - Edit your MainActivity.java (deep in android/app/src/main/java/...) to look like this (note two places to edit):
 ```
 package com.myapp;
