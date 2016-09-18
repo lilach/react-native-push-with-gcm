@@ -69,28 +69,6 @@ include ':react-native-push-with-gcm'
 project(':react-native-push-with-gcm').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-push-with-gcm/android')
 ```
 
-- Get a `GCM_SENDER_ID` by registering your app in the following [link](https://developers.google.com/mobile/add).
-
-- Edit your MainActivity.java (deep in android/app/src/main/java/...) to look like this (note two places to edit):
-```
-package com.myapp;
-
-+ import com.oblador.keychain.KeychainPackage;
-....
-
-public class MainActivity extends extends ReactActivity {
-
-  @Override
-  protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-              new MainReactPackage(),
-+             new PushWithGCMPackage(<GCM_SENDER_ID>)
-      );
-  }
-  ...
-}
-```
-
 ## Requirements
 
 - Google Cloud Messaging. You can find the instructions
@@ -99,7 +77,9 @@ public class MainActivity extends extends ReactActivity {
 
 ## Usage
 
-### Setup (Required for iOS only)
+### Setup
+
+#### iOS
 
 For iOS devices only, you'll need to configure and connect to GCM:
 
@@ -131,6 +111,87 @@ PushWithGCM.unregisterToken()
 >
 > (from the
 > [docs](https://developers.google.com/instance-id/reference/ios/api/interface_g_g_l_instance_i_d.html#method-detail))
+
+#### Android
+
+- Get a `GCM_SENDER_ID` by registering your app in the following [link](https://developers.google.com/mobile/add).
+
+- Edit your MainActivity.java to look like this:
+```
+package com.myapp;
+
++ import com.oblador.keychain.KeychainPackage;
+....
+
+public class MainActivity extends extends ReactActivity {
+
+  @Override
+  protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+              new MainReactPackage(),
++             new PushWithGCMPackage(<GCM_SENDER_ID>)
+      );
+  }
+  ...
+}
+```
+
+- Create a GCM listener service to handle received notifications:
+
+```
+package com.myklarnamobile;
+
+import com.google.android.gms.gcm.GcmListenerService;
+
+public class PushWithGCMListenerService extends GcmListenerService {
+    @Override
+    public void OnMessage(String from, Bundle data) {
+    // Customized notification handling.
+    }
+}
+```
+
+> For more information, read [overview of GCM message format] (https://developers.google.com/cloud-messaging/concept-options#notifications_and_data_messages) and [guide for implementing a GCM listener service](https://developers.google.com/cloud-messaging/downstream).
+
+- Edit your AndroidManifest.xml to look like this:
+
+```
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="<YOUR_PACKAGE_NAME>">
+    ...
++   <permission android:name="com.myklarnamobile.permission.C2D_MESSAGE"
++       android:protectionLevel="signature" />
++   <uses-permission android:name="com.myklarnamobile.permission.C2D_MESSAGE" />
++   <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+      ...
++     <receiver
++       android:name="com.google.android.gms.gcm.GcmReceiver"
++       android:exported="true"
++       android:permission="com.google.android.c2dm.permission.SEND" >
++       <intent-filter>
++         <action android:name="com.google.android.c2dm.intent.RECEIVE" />
++         <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
++           <category android:name="com.myklarnamobile" />
++       </intent-filter>
++     </receiver>
++     <service android:name="<YOUR_PACKAGE_NAME>.PushWithGCMListenerService"
++              android:exported="false" >
++       <intent-filter>
++         <action android:name="com.google.android.c2dm.intent.RECEIVE" />
++       </intent-filter>
++     </service>
++     <service
++         android:name="com.pushwithgcm.GCMInstanceIDListenerService"
++         android:exported="false">
++       <intent-filter>
++         <action android:name="com.google.android.gms.iid.InstanceID" />
++       </intent-filter>
++     </service>
+    </application>
+</manifest>
+```
 
 ### Subscription to topics
 If there are topics you'd like this device to be registered to, you can
