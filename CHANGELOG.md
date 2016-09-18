@@ -21,8 +21,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - registration method name, to better describe what's going on. changed
   from `registerUser(..., ...)` to `registerToken(..., ...)`
 
-## [0.1.0] - 2016-05-05
+## 0.1.0 - 2016-05-05
 This is the first version of this module.
 ### Added
 - The ability to register to GCM from iOS without cluttering
   `AppDelegate.m`
+
+[0.4.0]: https://github.com/lilach/react-native-push-with-gcm/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/lilach/react-native-push-with-gcm/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/lilach/react-native-push-with-gcm/compare/v0.1.0...v0.2.0
