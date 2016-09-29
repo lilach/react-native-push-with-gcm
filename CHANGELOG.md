@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.4.1] - 2015-09-18
+### Changed
+- Bugfix in registration to GCM from Android.
+
 ## [0.4.0] - 2015-09-18
 ### Added
 - The ability to register to GCM from Android.
