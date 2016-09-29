@@ -22,7 +22,7 @@ public class PushWithGCM extends ReactContextBaseJavaModule {
     private static GcmPubSub gcmPubSub;
     private static InstanceID instanceID;
 
-    public PushWithGCM(ReactApplicationContext reactContext, String GCMSenderId) {
+    public PushWithGCM(ReactApplicationContext reactContext, String gcmSenderId) {
         super(reactContext);
         PushWithGCM.gcmSenderId = gcmSenderId;
         PushWithGCM.gcmPubSub = GcmPubSub.getInstance(getReactApplicationContext());
